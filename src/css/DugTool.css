@@ -1,0 +1,27 @@
+.dugtool {
+	position: fixed !important;
+	top: 10px;
+	width: 200px;
+	border: 3px solid #53714D;
+}
+
+.dugtool a {
+	text-decoration: none !important;
+}
+
+.dugtool.left {
+	left: 10px;
+}
+.dugtool.right {
+	right: 10px;
+}
+
+.dugtool ul {
+	list-style: none;
+}
+
+#quickLinks .anchor:hover {
+	background-color: #53714D;
+	font-weight: bold;
+	color: #ffffff;
+}

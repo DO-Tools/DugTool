@@ -1,0 +1,10 @@
+{
+    "name": "DugTool",
+    "version": "1.6.1",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "grunt-jsbeautifier": "~0.1.1",
+        "grunt-css": "~0.5.1"
+    }
+}
