@@ -20,8 +20,19 @@
 	list-style: none;
 }
 
-#quickLinks .anchor:hover {
+.anchor:hover {
 	background-color: #53714D;
 	font-weight: bold;
 	color: #ffffff;
+}
+
+#scrollToTop {
+	position: fixed;
+	right : 10px;
+	bottom: 0;
+	margin-bottom : 10px;
+	padding: 5px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+    border-radius: 50px;
 }

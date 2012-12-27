@@ -1,7 +1,7 @@
 var fs = require('fs');
 var spawn = require("child_process").spawn;
 var config = require('./src/js/userscript.js');
-var output = "./dist/dugtool.js";
+var output = "./dist/DugTool.js";
 var fos = fs.createWriteStream(output);
 var i, k;
 fos.write("// ==UserScript==\n");

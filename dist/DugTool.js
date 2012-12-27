@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name	DugTool
+// @namespace	https://github.com/silviu-burcea/DugTool
+// @version	1.6.2
+// @description	This is a useful tool for Dugout Online game
+// @include	http://do*.dugout-online.com/*
+// @require	http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
+// @require	http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js
+// @copyright	2012, RaceSoft
+// ==/UserScript==
+
 // globals
 var $head = $("head");
 var $body = $("body");
