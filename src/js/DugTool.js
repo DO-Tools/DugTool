@@ -19,8 +19,20 @@ $.get("https://raw.github.com/silviu-burcea/DugTool/v1.6.2/src/css/DugTool.css")
     $style[0].innerHTML = res;
 });
 
-// Functions
+// Helper functions
+var formatNumber = function(nr) {
+    var result = '';
+    nr = nr.toString();
+    while (nr.length > 3) {
+        result = '.' + nr.substring(nr.length - 3) + result;
+        nr = nr.slice(0, - 3);
+    }
+    return nr + result;
+};
+
+// DugTool Functions
 var clubDetails = function() {
+    // TDs with values(without labels)
     var $clubDetTr = $('.forumline').last().children("tbody").children("tr").children("td").first().find("table").first().find("table tr").filter(function() {
         return $(this).children('td').size() == 3;
     }).find("td:eq(1)");
@@ -46,10 +58,6 @@ var clubDetails = function() {
     // TODO debug remove it and add sharing button
 };
 
-/**
- * This may change because it is very hard/impossible to select
- * the required tables with indexes
- */
 var matchLinking = function() {
     // livetext
     var $events = $("img").filter(function() {
@@ -84,6 +92,34 @@ var matchLinking = function() {
     // scroll to top
     $("span.dotmenu").append("<a name='top'></a>");
     $("body").append("<a id='scrollToTop' class='anchor' href='#top'>Scroll to top</a>");
+};
+
+var budgetEstimator = function() {
+    var $budgetTR = $(".frmredtxt").parent().next().find("table").not(".forumline").find("tr");
+    // 2nd column
+    var budgetEntries = $budgetTR.find("td:eq(1)").map(function() {
+        return +$(this).text().replace(/[,.]/g, "").match(/-?\d+/)[0];
+    });
+    // 3rd column, collect just current players and staff wages/week
+    var expensesWeek = $budgetTR.find("td:eq(2)").map(function() {
+        return +($(this).text().match(/\d+/g) || ["0"]).join("");
+    }).splice(1, 2);
+    // total wages/week
+    expensesWeek = expensesWeek[0] + expensesWeek[1];
+    // total wages paid this season
+    var expensesTotal = -budgetEntries[1] - budgetEntries[2];
+    // estimated week
+    var currentWeek = Math.round(expensesTotal / expensesWeek);
+    var weeksToPay = 20 - currentWeek;
+    // tickets, maintenance & miscellaneous
+    expensesWeek -= (budgetEntries[4] + budgetEntries[8] + budgetEntries[9]) / currentWeek;
+    // 4% weekly sponsorship
+    expensesWeek -= budgetEntries[6] / (1 + currentWeek * 0.04) * 0.04;
+    var finalMoney = budgetEntries[10] - Math.round(expensesWeek) * weeksToPay;
+    var $tr = $("<tr></tr>");
+    $tr.append("<td class='fintbr'>Final Money:</td><td class='fintbr'>" + formatNumber(finalMoney) + " £</td><td class='fintbl'>(Powered by DugTool)</td>");
+    $tr.find("td").css("background-color", "#53714D").css("font-weight", "bold").css("color", "#ffffff");
+    $budgetTR.parent().append($tr);
 };
 
 var playersCount = function() {
@@ -175,6 +211,9 @@ if (page.match(/club\.php\?pg=clubinfo(&club_id=\d+)?$/)) {
     // TODO remove this when ready
 } else if (page.match(/matches.php\?pg=livetext/)) {
     matchLinking();
+    $rightDT.hide();
+} else if (page.match(/management\.php\?pg=finances/)) {
+    budgetEstimator();
     $rightDT.hide();
 } else {
     $rightDT.hide();
