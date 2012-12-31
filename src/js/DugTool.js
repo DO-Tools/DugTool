@@ -15,7 +15,7 @@ $body.append($style);
 $(".dugtool").draggable();
 
 // Style
-$.get("https://raw.github.com/silviu-burcea/DugTool/v1.6.2/src/css/DugTool.css").done(function(res) {
+$.get("https://raw.github.com/silviu-burcea/DugTool/v1.6.4/src/css/DugTool.css").done(function(res) {
     $style[0].innerHTML = res;
 });
 
@@ -91,7 +91,7 @@ var matchLinking = function() {
     });
     // scroll to top
     $("span.dotmenu").append("<a name='top'></a>");
-    $("body").append("<a id='scrollToTop' class='anchor' href='#top'>Scroll to top</a>");
+    $("body").append("<a id='scrollToTop' class='anchor rounded' href='#top'>Scroll to top</a>");
 };
 
 var budgetEstimator = function() {
@@ -198,6 +198,14 @@ var playerDetails = function() {
     // TODO debug remove and add rendering
 };
 
+var transferValue = function() {
+    var $cell = $('.doformslong').parent();
+    var max = +$cell.prev().text().match(/[0-9.,]+/).join("").replace(/[,.]/g, "");
+    $("<a></a>").addClass("anchor rounded").text("Set max value").on("click", function() {
+        $cell.find("input").val(max);
+    }).appendTo($cell);
+};
+
 var page = document.URL;
 $rightDT.append("<div style='text-align:center;'><b>DugTool</b></div>");
 if (page.match(/club\.php\?pg=clubinfo(&club_id=\d+)?$/)) {
@@ -214,6 +222,9 @@ if (page.match(/club\.php\?pg=clubinfo(&club_id=\d+)?$/)) {
     $rightDT.hide();
 } else if (page.match(/management\.php\?pg=finances/)) {
     budgetEstimator();
+    $rightDT.hide();
+} else if (page.match(/club\.php\?pg=players&subpage=settransfer/)) {
+    transferValue();
     $rightDT.hide();
 } else {
     $rightDT.hide();

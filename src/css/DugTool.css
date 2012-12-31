@@ -21,6 +21,7 @@
 }
 
 .anchor:hover {
+	padding: 5px;
 	background-color: #53714D;
 	font-weight: bold;
 	color: #ffffff;
@@ -32,6 +33,9 @@
 	bottom: 0;
 	margin-bottom : 10px;
 	padding: 5px;
+}
+
+.rounded {
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
     border-radius: 50px;
