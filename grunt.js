@@ -8,7 +8,7 @@ module.exports = function(grunt) {
             files: ['<config:lint.files>']
         },
         lint: {
-            files: ['./*js', './src/js/*js', './package.json'],
+            files: ['./*js', './src/js/Userscript.js', './src/js/Helper.js', './dist/*.js', './package.json', './test/*.js'],
         },
         jshint: {
             options: {
@@ -28,6 +28,8 @@ module.exports = function(grunt) {
                 strict: false
             },
             globals: {
+                describe: false,
+                it: false,
                 document: false,
                 $: false
             }

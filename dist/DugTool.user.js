@@ -1,34 +1,13 @@
 // ==UserScript==
 // @name	DugTool
 // @namespace	https://github.com/silviu-burcea/DugTool
-// @version	1.6.4
+// @version	1.6.5
 // @description	This is a useful tool for Dugout Online game
 // @include	http://do*.dugout-online.com/*
 // @require	http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @require	http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js
-// @copyright	2012, RaceSoft
+// @copyright	2013, RaceSoft
 // ==/UserScript==
-
-// globals
-var $head = $("head");
-var $body = $("body");
-var $leftDT = $("<div/>").attr("id", "leftDT").attr("class", "dugtool left");
-var $rightDT = $("<div/>").attr("id", "rightDT").attr("class", "dugtool right");
-var heightPos = "10px",
-    widthPos = "10px",
-    width = "200px";
-var $style = $("<style/>");
-// DOM
-$body.append($leftDT);
-$body.append($rightDT);
-$body.append($style);
-// Draggable
-$(".dugtool").draggable();
-
-// Style
-$.get("https://raw.github.com/silviu-burcea/DugTool/v1.6.4/src/css/DugTool.css").done(function(res) {
-    $style[0].innerHTML = res;
-});
 
 // Helper functions
 var formatNumber = function(nr) {
@@ -40,6 +19,27 @@ var formatNumber = function(nr) {
     }
     return nr + result;
 };
+
+// globals
+var $head = $("head");
+var $body = $("body");
+var $leftDT = $("<div/>").attr("id", "leftDT").attr("class", "dugtool left");
+var $rightDT = $("<div/>").attr("id", "rightDT").attr("class", "dugtool right");
+var heightPos = "10px";
+var widthPos = "10px";
+var width = "200px";
+var $style = $("<style/>");
+// DOM
+$body.append($leftDT);
+$body.append($rightDT);
+$body.append($style);
+// Draggable
+$(".dugtool").draggable();
+
+// Style
+$.get("https://raw.github.com/silviu-burcea/DugTool/master/src/css/DugTool.css").done(function(res) {
+    $style[0].innerHTML = res;
+});
 
 // DugTool Functions
 var clubDetails = function() {

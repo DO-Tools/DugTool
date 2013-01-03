@@ -3,8 +3,13 @@
     "version": "1.6.1",
     "private": true,
     "dependencies": {},
+    "scripts": {
+        "test": "mocha"
+    },
     "devDependencies": {
         "grunt-jsbeautifier": "~0.1.1",
-        "grunt-css": "~0.5.1"
+        "grunt-css": "~0.5.1",
+        "mocha": "~1.7.4",
+        "expect.js": "~0.2.0"
     }
 }

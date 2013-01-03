@@ -3,9 +3,9 @@ var $head = $("head");
 var $body = $("body");
 var $leftDT = $("<div/>").attr("id", "leftDT").attr("class", "dugtool left");
 var $rightDT = $("<div/>").attr("id", "rightDT").attr("class", "dugtool right");
-var heightPos = "10px",
-    widthPos = "10px",
-    width = "200px";
+var heightPos = "10px";
+var widthPos = "10px";
+var width = "200px";
 var $style = $("<style/>");
 // DOM
 $body.append($leftDT);
@@ -15,20 +15,9 @@ $body.append($style);
 $(".dugtool").draggable();
 
 // Style
-$.get("https://raw.github.com/silviu-burcea/DugTool/v1.6.4/src/css/DugTool.css").done(function(res) {
+$.get("https://raw.github.com/silviu-burcea/DugTool/master/src/css/DugTool.css").done(function(res) {
     $style[0].innerHTML = res;
 });
-
-// Helper functions
-var formatNumber = function(nr) {
-    var result = '';
-    nr = nr.toString();
-    while (nr.length > 3) {
-        result = '.' + nr.substring(nr.length - 3) + result;
-        nr = nr.slice(0, - 3);
-    }
-    return nr + result;
-};
 
 // DugTool Functions
 var clubDetails = function() {
