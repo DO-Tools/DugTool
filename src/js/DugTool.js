@@ -145,11 +145,11 @@ var playersCount = function() {
         var pos = ["GK", "DF", "MF", "FW"];
         $grid.append("<tr><th>Pos</th><th>Total</th><th>U18</th></tr>");
         for (i = 0; i < 4; i++) {
-            $grid.append("<tr><td>" + pos[i] + "</td><td>" + counter.senior[i] + "</td><td>" + counter.junior[i] + "</td></tr>");
+            $grid.append("<tr><td class='center'>" + pos[i] + "</td><td class='center'>" + counter.senior[i] + "</td><td class='center'>" + counter.junior[i] + "</td></tr>");
         }
-        $rightDT.append("<div>Players count ( " + (counter.noPlayers >= 38 ? ("<span class='red'><b>" + counter.noPlayers + "</b></span>") : counter.noPlayers) + " )</div>");
+        $rightDT.append("<div class='center'>Players count ( " + (counter.noPlayers >= 38 ? ("<span class='red'><b>" + counter.noPlayers + "</b></span>") : counter.noPlayers) + " )</div>");
         if (counter.averageAge !== 0) {
-            $rightDT.append("<div>Average age : " + counter.averageAge + "</div>");
+            $rightDT.append("<div class='center'>Average age : " + counter.averageAge + "</div>");
         }
         $rightDT.append($grid);
     } else {

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                 eqeqeq: false,
                 immed: true,
                 latedef: true,
-                newcap: true,
+                newcap: false,
                 noarg: true,
                 sub: true,
                 undef: true,
@@ -31,7 +31,8 @@ module.exports = function(grunt) {
                 describe: false,
                 it: false,
                 document: false,
-                $: false
+                $: false,
+                GM_getResourceText: false
             }
         },
         csslint: {

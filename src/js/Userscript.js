@@ -1,7 +1,7 @@
 module.exports = {
     "name": ["DugTool"],
     "namespace": ["https://github.com/silviu-burcea/DugTool"],
-    "version": ["1.6.6"],
+    "version": ["1.6.7"],
     "author": ["Silviu Burcea"],
     "description": ["This is a useful tool for Dugout Online game"],
     "include": ["http://do*.dugout-online.com/*"],

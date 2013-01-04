@@ -40,3 +40,15 @@
 	-moz-border-radius: 50px;
     border-radius: 50px;
 }
+
+.center {
+	text-align : center;
+}
+
+#plCount {
+	border : 1px solid black;
+	width : 100%;
+}
+#plCount tr {
+	background-color : #F8F8F8;
+}
