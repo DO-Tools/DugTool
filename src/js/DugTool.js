@@ -15,9 +15,8 @@ $body.append($style);
 $(".dugtool").draggable();
 
 // Style
-$.get("https://raw.github.com/silviu-burcea/DugTool/master/src/css/DugTool.css").done(function(res) {
-    $style[0].innerHTML = res;
-});
+var styleMainSource = GM_getResourceText("styleMain");
+$style.eq(0).html(styleMainSource);
 
 // DugTool Functions
 var clubDetails = function() {
