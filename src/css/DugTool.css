@@ -45,10 +45,14 @@
 	text-align : center;
 }
 
-#plCount {
+.dugtooltable {
 	border : 1px solid black;
+	border-spacing : 0 !important;
 	width : 100%;
 }
-#plCount tr {
-	background-color : #F8F8F8;
+.odd {
+	background-color : #E6E6E6;
+}
+.even {
+	background-color: #F1F1F1;
 }
