@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name	DugTool
 // @namespace	https://github.com/silviu-burcea/DugTool
-// @version	1.6.8
+// @version	1.6.9
 // @author	Silviu Burcea
 // @description	This is a useful tool for Dugout Online game
 // @include	http://do*.dugout-online.com/*
@@ -73,7 +73,7 @@ var clubDetails = function() {
 var matchLinking = function() {
 	// livetext
 	var $events = $("img").filter(function() {
-		return $(this).attr("src").match(/sodnikkonec\.gif/);
+		return $(this).attr("src").match(/(sodnikkonec|komentator)\.gif/);
 	}).parent().next().children("table").children("tbody").children("tr");
 	// add some classes and create target anchors
 	var matchCls = "matchevent", goalCls = "goal", ycCls = "yellowcard", rcCls = "redcard";

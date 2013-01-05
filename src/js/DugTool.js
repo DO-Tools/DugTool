@@ -49,7 +49,7 @@ var clubDetails = function() {
 var matchLinking = function() {
 	// livetext
 	var $events = $("img").filter(function() {
-		return $(this).attr("src").match(/sodnikkonec\.gif/);
+		return $(this).attr("src").match(/(sodnikkonec|komentator)\.gif/);
 	}).parent().next().children("table").children("tbody").children("tr");
 	// add some classes and create target anchors
 	var matchCls = "matchevent", goalCls = "goal", ycCls = "yellowcard", rcCls = "redcard";
