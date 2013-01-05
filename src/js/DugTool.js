@@ -43,7 +43,7 @@ var clubDetails = function() {
 	club.views = !!views ? 0 : +$clubDetTr.eq(9).text().match(/\d+/)[0];
 	club.viewsRank = !!views ? 0 : +$clubDetTr.eq(10).text().match(/\d+/)[0];
 	console.log(club);
-	// TODO debug remove it and add sharing button
+	// TODO v1.8 debug remove it and add sharing button
 };
 
 var matchLinking = function() {
@@ -151,7 +151,7 @@ var playersCount = function() {
 		}
 		$rightDT.append($grid);
 	} else {
-		// TODO v1.7 no standard view, count only GK or DF or MF or FW
+		// TODO v1.8 no standard view, count only GK or DF or MF or FW
 	}
 };
 
@@ -188,28 +188,37 @@ var playerDetails = function() {
 	});
 	plDetails.captain = ($skills[8] * 4 + $skills[14] * 2 + $skills[9]) / 14 + plDetails.xp / 40;
 	plDetails.OPS = [{
-		position : "GK", skill : $skills[0] + $skills[3] + $skills[6] + $skills[9] + $skills[5]
+		position : "GK",
+		skill : $skills[0] + $skills[3] + $skills[6] + $skills[9] + $skills[5]
 	}, {
-		position : "DL/R", skill : $skills[15] + $skills[19] + $skills[4] + $skills[9] + $skills[5]
+		position : "DL/R",
+		skill : $skills[15] + $skills[19] + $skills[4] + $skills[9] + $skills[5]
 	}, {
-		position : "DC", skill : $skills[15] + $skills[19] + $skills[16] + $skills[9] + $skills[5]
+		position : "DC",
+		skill : $skills[15] + $skills[19] + $skills[16] + $skills[9] + $skills[5]
 	}, {
-		position : "DMC", skill : $skills[18] + $skills[2] + $skills[15] + $skills[19] + $skills[5]
+		position : "DMC",
+		skill : $skills[18] + $skills[2] + $skills[15] + $skills[19] + $skills[5]
 	}, {
-		position : "ML/R", skill : $skills[18] + $skills[2] + $skills[10] + $skills[4] + $skills[5]
+		position : "ML/R",
+		skill : $skills[18] + $skills[2] + $skills[10] + $skills[4] + $skills[5]
 	}, {
-		position : "MC", skill : $skills[18] + $skills[2] + $skills[10] + $skills[13] + $skills[5]
+		position : "MC",
+		skill : $skills[18] + $skills[2] + $skills[10] + $skills[13] + $skills[5]
 	}, {
-		position : "AM", skill : $skills[18] + $skills[2] + $skills[13] + $skills[1] + $skills[7]
+		position : "AM",
+		skill : $skills[18] + $skills[2] + $skills[13] + $skills[1] + $skills[7]
 	}, {
-		position : "FL/R", skill : $skills[1] + $skills[7] + $skills[10] + $skills[4] + $skills[5]
+		position : "FL/R",
+		skill : $skills[1] + $skills[7] + $skills[10] + $skills[4] + $skills[5]
 	}, {
-		position : "FC", skill : $skills[1] + $skills[7] + $skills[10] + $skills[16] + $skills[5]
+		position : "FC",
+		skill : $skills[1] + $skills[7] + $skills[10] + $skills[16] + $skills[5]
 	}];
 	var i, $tableOPS = $("<table></table>").attr("id", "opsTable").addClass("dugtooltable");
 	$tableOPS.append("<tr><th>Pos</th><th>OPS</th></tr>");
 	var $row;
-	for (i = 0; i < plDetails.OPS.length; i++){
+	for ( i = 0; i < plDetails.OPS.length; i++) {
 		$row = $("<tr></tr>").addClass(i % 2 === 0 ? "even" : "odd").addClass("center");
 		$row.html("<td>" + plDetails.OPS[i].position + "</td><td>" + plDetails.OPS[i].skill + "</td>");
 		$tableOPS.append($row);
@@ -225,6 +234,53 @@ var transferValue = function() {
 	$("<a></a>").addClass("anchor rounded").text("Set max value").on("click", function() {
 		$cell.find("input").val(max);
 	}).appendTo($cell);
+};
+
+var transferGraph = function() {
+	var isIn = true;
+	var $transferRows = $($(".forumline table tr").splice(1));
+	// eliminate title
+	var playersBought = 0, playersSold = 0, budgetReceived = 0, budgetSpent = 0;
+	$transferRows.each(function() {
+		var $row = $(this);
+		var $tds = $row.find("td");
+		if ($tds.length == 1) {
+			isIn = false;
+		} else if ($tds.length == 5) {
+			// transfer here
+			var sum = $tds.eq(4).text().match(/[0-9.,]/g) || [0];
+			sum = +sum.join("").replace(/[,.]/g, "");
+			if (isIn) {++playersBought;
+				budgetSpent += sum;
+			} else {++playersSold;
+				budgetReceived += sum;
+			}
+		} else {
+			// Do nothing
+		}
+	});
+	var inRatio = 100 * budgetReceived / (budgetReceived + budgetSpent);
+	var outRatio = 100 - inRatio;
+	var width = 250, height = 100;
+	var url = "https://chart.googleapis.com/chart?cht=p3&chs=" + width +"x" + height + "&chd=t:" + inRatio + "," + outRatio + "&chl=Received|Spent";
+	var $img = $("<img id='budgetGraph' />").attr("src", url);
+	inRatio = 100 * playersSold / (playersSold + playersBought);
+	outRatio = 100 - inRatio;
+	url = "https://chart.googleapis.com/chart?cht=p3&chs=" + width +"x" + height + "&chd=t:" + inRatio + "," + outRatio + "&chl=OUT|IN";
+	var $img2 = $("<img id='playersGraph' />").attr('src', url);	
+	var $transferGrid = $("<table></table>").attr("id", "transferTable").addClass("dugtooltable");
+	$transferGrid.append("<tr><th>Counter</th><th>Value</th></tr>");
+	$transferGrid.append("<tr class='odd'><td>Players In</td><td class='center'>" + formatNumber(playersBought) + "</td></tr>");
+	$transferGrid.append("<tr class='even'><td>Money spent</td><td class='center'>" + formatNumber(budgetSpent) + " £</td></tr>");
+	$transferGrid.append("<tr class='odd'><td>Money spent / player </td><td class='center'>" + formatNumber(parseInt(budgetSpent / playersBought, 10)) + " £</td></tr>");
+	$transferGrid.append("<tr class='even'><td>Players Out</td><td class='center'>" + formatNumber(playersSold) + "</td></tr>");
+	$transferGrid.append("<tr class='odd'><td>Money received</td><td class='center'>" + formatNumber(budgetReceived) + " £</td></tr>");
+	$transferGrid.append("<tr class='even'><td>Money received / player </td><td class='center'>" + formatNumber(parseInt(budgetReceived / playersSold, 10)) + " £</td></tr>");
+	$rightDT.css("width", width + "px");
+	$rightDT.append($transferGrid);
+	$rightDT.append($img);
+	$rightDT.append($img2);
+	$rightDT.append("<div class='center'>Powered by DugTool</div>");
 };
 
 var page = document.URL;
@@ -245,6 +301,8 @@ if (page.match(/club\.php\?pg=clubinfo(&club_id=\d+)?$/)) {
 } else if (page.match(/club\.php\?pg=players&subpage=settransfer/)) {
 	transferValue();
 	$rightDT.hide();
+} else if (page.match(/club\.php\?pg=clubinfo&subpage=transfers/)) {
+	transferGraph();
 } else {
 	$rightDT.hide();
 }
@@ -257,4 +315,4 @@ $ul.append("<a href='/community.php?pg=forum&subpage=viewtopic&t=254714'><div cl
 $ul.append("<a href='/management.php?pg=stadium&subpage=setticket'><div class='anchor'>Set ticket price</div></a>");
 $ul.append("<a href='/management.php?pg=sponsors'><div class='anchor'>Sponsors</div></a>");
 $ul.append("<a href='/management.php?pg=calendar'><div class='anchor'>Calendar</div></a>");
-$leftDT.append($ul); 
+$leftDT.append($ul);
