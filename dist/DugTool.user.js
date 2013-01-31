@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name	DugTool
 // @namespace	https://github.com/silviu-burcea/DugTool
-// @version	1.7.0
+// @version	1.7.1
 // @author	Silviu Burcea
 // @description	This is a useful tool for Dugout Online game
 // @include	http://do*.dugout-online.com/*
@@ -184,7 +184,9 @@ var playersCount = function() {
 var playerDetails = function() {
     // this is a tr
     var $player = $(".row4").parent().prev().children("td").children("table").children("tbody").children("tr").eq(1);
-    var $nameId = $(".dataHeader1_profile > b").text().split("-");
+    var $nameId = $(".dataHeader1_profile > b").text();
+    $nameId = ( !! $nameId) ? $nameId.trim() : undefined;
+    $nameId = ( !! $nameId) ? $nameId.match(/^(.+)\s*-\s*\(ID\s*(\d+)\)$/) : undefined;
     var $ageCountry = $(".dataText_profile");
     var $skills = $player.find(".plnum, .plnumd").map(function() {
         return +this.innerHTML;
@@ -196,8 +198,8 @@ var playerDetails = function() {
         return parseInt($(this).text().replace(/[,.]/g, ""), 10) || 0;
     });
     var plDetails = {};
-    plDetails.fullname = $nameId[0].trim();
-    plDetails.id = $nameId[1].match(/\d+/)[0];
+    plDetails.fullname = ( !! $nameId) ? $nameId[1].trim() : undefined;
+    plDetails.id = ( !! $nameId) ? $nameId[2] : undefined;
     plDetails.age = +$ageCountry.eq(0).text().match(/\d+/)[0];
     plDetails.country = $ageCountry.eq(1).find("img").attr('src').match(/\/flags_small\/(\w+)\.gif/)[1].toUpperCase();
     plDetails.xp = +$("img").filter(function() {
