@@ -1,5 +1,5 @@
 # DugTool 1.7.0 #
-[![Build Status](https://travis-ci.org/silviu-burcea/DugTool.png?branch=v1.6.5)](https://travis-ci.org/silviu-burcea/DugTool)
+[![Build Status](https://travis-ci.org/racesoft/DugTool.svg?branch=master)](https://travis-ci.org/silviu-burcea/DugTool)
 =======
 [Quick install link](https://raw.github.com/silviu-burcea/DugTool/master/dist/DugTool.user.js)
 
